@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>OnlineDate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
+
+    * {
+      font-family: Gabarito, system-ui, sans-serif;
+    }
+
+    .star {
+      width: 28px;
+      aspect-ratio: 1;
+      clip-path: polygon(50% 0, 79% 90%, 2% 35%, 98% 35%, 21% 90%);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+
+
+<body class="py-8 mx-auto max-w-6xl flex flex-col gap-4 min-h-screen justify-center">
+  <a href="/" class="flex flex-row items-center text-center gap-4">
+    <svg fill="#000000" height="28px" width="28px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 219.151 219.151" xml:space="preserve">
+      <g>
+        <path
+          d="M109.576,219.151c60.419,0,109.573-49.156,109.573-109.576C219.149,49.156,169.995,0,109.576,0S0.002,49.156,0.002,109.575   C0.002,169.995,49.157,219.151,109.576,219.151z M109.576,15c52.148,0,94.573,42.426,94.574,94.575   c0,52.149-42.425,94.575-94.574,94.576c-52.148-0.001-94.573-42.427-94.573-94.577C15.003,57.427,57.428,15,109.576,15z" />
+        <path
+          d="M94.861,156.507c2.929,2.928,7.678,2.927,10.606,0c2.93-2.93,2.93-7.678-0.001-10.608l-28.82-28.819l83.457-0.008   c4.142-0.001,7.499-3.358,7.499-7.502c-0.001-4.142-3.358-7.498-7.5-7.498l-83.46,0.008l28.827-28.825   c2.929-2.929,2.929-7.679,0-10.607c-1.465-1.464-3.384-2.197-5.304-2.197c-1.919,0-3.838,0.733-5.303,2.196l-41.629,41.628   c-1.407,1.406-2.197,3.313-2.197,5.303c0.001,1.99,0.791,3.896,2.198,5.305L94.861,156.507z" />
+      </g>
+    </svg>
+    <h1 class="text-[#484848]">LoveMatch</h1>
+  </a>
+  {% if person %}
+  <main
+    class="grid grid-cols-[0.2fr_1fr] place-items-start bg-gray-100 border-gray-200 py-6 px-12 w-fit rounded-3xl gap-8">
+    <div class="flex flex-col gap-4">
+      <div class="w-[160px] h-[160px] bg-gray-200 rounded-full"></div>
+    </div>
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col">
+        <div class="flex flex-row gap-2 items-center">
+          {% for rating in range(0, person.attractiveness|int) %}
+          <div class="star bg-yellow-500"></div>
+          {% endfor %}
+        </div>
+        <h1 class="font-bold text-gray-800 text-4xl">{{ person.name }}</h1>
+        <p class="text-gray-400 text-xl">{{ person.age }} years old</p>
+        <p class="text-gray-400 text-xl">Earns around ₱{{ person.income }}</p>
+
+        {% if matches is not defined %}
+        <form method="POST" action="/predict" class="flex flex-col gap-4 mt-4">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="number" name="age" placeholder="Age" required />
+          <input type="number" name="income" placeholder="Income" required />
+          <input type="number" name="children" placeholder="Number of Children" required />
+          <input type="number" name="attractiveness" placeholder="Attractiveness (1-10)" min="1" max="10" required />
+          <select name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <label><input type="checkbox" name="is_vip" /> VIP?</label>
+          <textarea name="bio" placeholder="Bio (optional)"></textarea>
+          <button type="submit">Predict Matches</button>
+        </form>
+        {% else %}
+        <h1 class="text-2xl font-semibold text-green-700">Predicted matches: {{ matches }}</h1>
+        {% endif %}
+        {% if error %}
+        <p class="text-red-600">Error: {{ error }}</p>
+        {% endif %}
+
+      </div>
+    </div>
+  </main>
+  {% endif %}
+</body>
+
+</html>

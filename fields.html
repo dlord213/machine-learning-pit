@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveMatch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
+
+        * {
+            font-family: Gabarito, system-ui, sans-serif;
+        }
+
+        .star {
+            width: 28px;
+            aspect-ratio: 1;
+            clip-path: polygon(50% 0, 79% 90%, 2% 35%, 98% 35%, 21% 90%);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="py-8 mx-auto max-w-3xl flex flex-col gap-2 min-h-screen">
+    <div class="flex flex-col justify-between">
+        <h1 class="text-4xl text-pink-500">LoveMatch</h1>
+        <p class="text-[#484848]">Find out how many matches you could get, based on your profile.</p>
+    </div>
+    <form method="POST" action="/predict" class="grid grid-rows-5 gap-4 mt-4">
+        <input type="text" name="name" placeholder="Name" required
+            class="p-4 bg-gray-50 rounded-xl border border-gray-200" />
+        <input type="number" name="age" placeholder="Age" required
+            class="p-4 bg-gray-50 rounded-xl border border-gray-200" />
+        <input type="number" name="income" placeholder="Income" required
+            class="p-4 bg-gray-50 rounded-xl border border-gray-200" />
+        <input type="number" name="children" placeholder="Number of Children" required
+            class="p-4 bg-gray-50 rounded-xl border border-gray-200" />
+        <input type="number" name="attractiveness" placeholder="Attractiveness (1-10)" min="1" max="10" required
+            class="p-4 bg-gray-50 rounded-xl border border-gray-200" />
+        <select name="gender" required class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <label class="flex flex-row gap-4"><input type="checkbox" name="is_vip" />Did you subscribe to VIP?</label>
+        <button type="submit" class="border border-rose-300 cursor-pointer bg-rose-200 p-4 rounded-xl">Predict
+            Matches</button>
+    </form>
+</body>
+
+</html>
